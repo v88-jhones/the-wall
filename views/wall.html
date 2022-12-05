@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico"/>
+        <meta name="description" content="Main page of the wall assignment">
+        <meta name="author" content="Jhones Digno'">
+        <link rel="stylesheet/less" href="../assets/less/wall.less">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.1.3/less.min.js" integrity="sha512-6gUGqd/zBCrEKbJqPI7iINc61jlOfH5A+SluY15IkNO1o4qP1DEYjQBewTB4l0U4ihXZdupg8Mb77VxqE+37dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="../assets/js/global.js"></script>
+        <script src="../assets/js/wall.js"></script>
+        <title>The Wall | Main Page</title>
+    </head>
+    <body>
+        <nav class="nav">
+            <div class="container">
+                <p class="nav_title">The Wall Assignment</p>
+                <div class="nav_side">
+                    <p class="nav_name">Welcome, Jhones Digno</p>
+                    <a href="/views/">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+             <div class="main">
+                <div class="main_header">
+                    <p><span class="message_count">0</span> message/s arranged by latest posted.</p>
+                    <a href="#" id="btn_create_message" class="btn btn-primary btn-small">Create Message</a>
+                </div>
+                <div class="messages">
+                    <div class="message">
+                    </div> 
+                 </div>
+             </div>
+
+        </div>
+        <div class="modal" id="create_modal">
+            <div class="modal_body">
+                <h3>Create a  Message</h3>
+                <form action="#" id="create_message_form">
+                    <textarea 
+                        name="message" 
+                        id="message" 
+                        cols="30" 
+                        rows="5"
+                        placeholder="Type your message here."
+                    ></textarea>
+                    <div>
+                        <a href="#" class="modal_cancel">Cancel</a>
+                        <input type="submit" value="Post Message" class="btn btn-primary btn-small" disabled>
+                    </div>
+                </form>
+                <span class="modal_close"></span>
+            </div>
+        </div>
+        <div class="modal" id="delete_modal">
+            <div class="modal_body">
+                <h3>Confirm Delete Message</h3>
+                <form action="#" id="delete_message_form">
+                    <p>Are you sure you want to remove this message?</p>
+                    <p>This action cannot be undone</p>
+                    <div>
+                        <a href="#" class="modal_cancel">Cancel</a>
+                        <input type="submit" value="Yes, Remove it." class="btn btn-primary btn-small" >
+                    </div>
+                </form>
+                <span class="modal_close"></span>
+            </div>
+        </div>
+    </body>
+</html>
