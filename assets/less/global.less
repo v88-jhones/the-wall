@@ -60,6 +60,18 @@ input, textarea {
     font-family: inherit;
 }
 
+.hide {
+    display: none;
+}
+
+//MIXINS
+
+.outline_container() {
+    border: 1px solid @color-grey-light-1;
+    border-radius: .6rem;
+    padding: 2.5rem;
+}
+
 //COMPONENTS
 
 .btn {
@@ -70,6 +82,7 @@ input, textarea {
     border-radius: .4rem;
     font-size: 1.6rem;
     font-weight: 600;
+    font-family: inherit;
     transition: all .2s;
 
     &-primary {

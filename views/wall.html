@@ -27,35 +27,33 @@
         <div class="container">
              <div class="main">
                 <div class="main_header">
-                    <p><span class="message_count">0</span> message/s arranged by latest posted.</p>
-                    <a href="#" id="btn_create_message" class="btn btn-primary btn-small">Create Message</a>
+                    <p><span id="message_count">0</span> message/s arranged by latest posted.</p>
+                    <button class="btn btn-primary btn-small modal_btn" data-target="create_modal">Create Message</button>
                 </div>
-                <div class="messages">
-                    <div class="message">
+                <div id="messages_container">
+                    <div id="no_message">
+                        <img src="../assets/images/no-message.svg" alt="no_message">
+                        <p>No Posted Message Yet</p>
                     </div> 
-                 </div>
+                </div>
              </div>
-
         </div>
+
         <div class="modal" id="create_modal">
             <div class="modal_body">
                 <h3>Create a  Message</h3>
                 <form action="#" id="create_message_form">
-                    <textarea 
-                        name="message" 
-                        id="message" 
-                        cols="30" 
-                        rows="5"
-                        placeholder="Type your message here."
+                    <textarea name="content" placeholder="Type your message here."
                     ></textarea>
                     <div>
                         <a href="#" class="modal_cancel">Cancel</a>
-                        <input type="submit" value="Post Message" class="btn btn-primary btn-small" disabled>
+                        <button type="submit" class="btn btn-primary btn-small" disabled>Post Message</button>
                     </div>
                 </form>
                 <span class="modal_close"></span>
             </div>
         </div>
+
         <div class="modal" id="delete_modal">
             <div class="modal_body">
                 <h3>Confirm Delete Message</h3>
@@ -64,11 +62,54 @@
                     <p>This action cannot be undone</p>
                     <div>
                         <a href="#" class="modal_cancel">Cancel</a>
-                        <input type="submit" value="Yes, Remove it." class="btn btn-primary btn-small" >
+                        <button type="submit" class="btn btn-primary btn-small">Yes, Remove it.</button>
                     </div>
                 </form>
                 <span class="modal_close"></span>
             </div>
         </div>
+
+        <!-- To be clone -->
+        <script type="text/html" id="update_form_template">
+            <form action="#" class="message_update_form">
+                <textarea name="content"></textarea>
+                <div>
+                    <a href="#" class="cancel_edit">Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-small"></button>
+                </div>
+            </form>
+        </script>
+        <script type="text/html" id="message_template">
+            <div class="message">
+                <div class="message_content">
+                    <p></p>
+                    <div class="message_actions">
+                        <button class="message_comment">
+                            <img src="../assets/images/message.svg" alt="message-icon">
+                            <span>0</span> Comment
+                        </button>
+                        <button class="message_edit">
+                            <img src="../assets/images/pencil-write.svg" alt="edit-icon">
+                            Edit
+                        </button>
+                        <button class="message_delete modal_btn" data-target="delete_modal">
+                            <img src="../assets/images/delete.svg" alt="delete-icon">
+                            Delete
+                        </button>
+                        <button class="message_user">
+                            <img src="../assets/images/user-placeholder.svg" alt="user-icon">
+                            <span>You</span> - Few seconds ago
+                        </button>
+                    </div>
+                </div>
+                <div class="message_comments hide">
+                    <form action="#" class="message_add_form">
+                        <textarea name="content" placeholder="Type your comment here."></textarea>
+                        <button type="submit" class="btn btn-primary btn-small" disabled>Post Comment</button>
+                    </form>
+                    <div class="comments_container"></div>
+                </div>
+            </div>
+        </script>
     </body>
 </html>
