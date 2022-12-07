@@ -79,8 +79,13 @@
     &_actions {
 
         display: flex;
+        flex-wrap: wrap;
         gap: 1.2rem;
         margin-top: 2rem;
+
+        @media screen and (max-width: @bp-small) {
+            justify-content: center;
+        }
 
         button {
             align-items: center;
@@ -91,6 +96,11 @@
             display: flex;
             font-size: 1.6rem;
             gap: .5rem;
+
+            @media screen and (max-width: @bp-small) {
+                font-size: 1.4rem;
+            }
+            
             &.message_edit {
                 color: @color-primary;
             }
