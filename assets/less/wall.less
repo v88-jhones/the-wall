@@ -1,0 +1,258 @@
+@import 'global.less';
+
+.container {
+    margin: 0 auto;
+    max-width: @bp-large;
+}
+
+.nav {
+    background: @color-white;
+    border-radius: .6rem;
+    box-shadow: @drop-shadow;
+    padding: 3rem;
+
+    .container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        @media only screen and (max-width: @bp-small) {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+
+    &_title {
+        font-size: 2.6rem;
+        font-weight: 500;
+    }
+
+    &_side {
+        display: flex;
+        gap: 2rem;
+        
+        a {
+            font-weight: 600;
+        }
+    }
+}
+
+.main {
+    background: @color-white;
+    margin: 5rem 0;
+    min-height: 75vh;
+    padding: 7rem;
+    box-shadow: @drop-shadow-light;
+
+    @media only screen and (max-width: @bp-medium) {
+        padding: 5rem;
+    }
+    @media only screen and (max-width: @bp-small) {
+        padding: 3rem;
+    }
+    
+    &_header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4.5rem;
+
+        @media only screen and (max-width: @bp-small) {
+            flex-direction: column;
+            text-align: center;
+            gap: 2rem;
+        }
+    }
+}
+
+.message {
+    .outline_container();
+
+    &:not(:last-of-type){
+        margin-bottom: 2rem;
+    }
+
+    > p {
+        color: @color-primary-dark;
+    }
+
+    &_actions {
+
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 2rem;
+
+        button {
+            align-items: center;
+            background: none;
+            border: none;
+            color: @color-grey-2;
+            cursor: pointer;
+            display: flex;
+            font-size: 1.6rem;
+            gap: .5rem;
+            &.message_edit {
+                color: @color-primary;
+            }
+            &.message_comment.active {
+                color: @color-primary;
+                
+                img { 
+                    content: url("../images/message-blue.svg");
+                }
+            }
+            &.message_user {
+                span {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    &_form {
+        .outline_container();
+        margin: 2rem 0;
+
+        button[type="submit"]{
+            display: block;
+            margin-left: auto;
+            margin-top: 1rem;
+        }
+    }
+}
+
+.update_form {
+
+    > div {
+        align-items: center;            
+        display: flex;
+        gap: 2rem;
+        justify-content: flex-end;
+        margin-top: 1rem;
+
+        .cancel_edit {
+            background: none;
+            border: none;
+            color: @color-grey-2;
+            cursor: pointer;
+            font-size: 1.6rem;
+        }
+    }
+}
+
+textarea {
+    background: @color-primary-lightest;
+    border-radius: .6rem;
+    border: 1px solid @color-primary-lighter;
+    color: @color-primary-dark;
+    height: 8rem;
+    outline: none;
+    padding: 1rem;
+    padding: 1rem;
+    resize: none;
+    width: 100%;
+
+    &:focus {
+        border-bottom: 1px solid @color-primary;
+    }
+}
+
+#message_count {
+    color: @color-primary;
+    font-weight: 600;
+}
+
+.no_message {
+    margin-top: 20rem;
+    text-align: center;
+    
+    p {
+        color: @color-grey-3;
+        text-shadow: @drop-shadow;
+    }
+}
+
+.modal {
+    &.show {
+        display: block;
+    }
+
+    background: rgba(@color-black, .5);
+    color: @color-primary-dark;
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+
+    &_body {
+        background: @color-white;
+        border-radius: .6rem;
+        margin: 10% auto;
+        max-width: 90rem;
+        padding: 5rem;
+        position: relative;
+        text-align: center;
+    }
+
+    &_title {
+        font-size: 2.7rem;
+        font-weight: 500;
+        margin-bottom: 3rem;
+    }
+
+    &_close {
+        background: none;
+        background-image: url('../images/cancel.svg');
+        border: none;
+        cursor: pointer;
+        height: 3.5rem;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        width: 3.5rem;
+    }
+
+    &_cancel {
+        background: none;
+        border: none;
+        color: @color-grey-2;
+        cursor: pointer;
+        font-size: 1.6rem;
+    }
+}
+
+#create_message_form {
+    > div {
+        align-items: center;
+        display: flex;
+        gap: 2.4rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+    }
+
+    textarea {
+        height: 15rem;
+    }
+}
+
+#delete_modal {
+    .modal_body {
+        width: 54rem;
+        
+        form div {
+            align-items: center;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+
+            > * {
+                flex: 1;
+            }
+        }
+    }
+}

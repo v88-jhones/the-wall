@@ -1,0 +1,121 @@
+@import 'global.less';
+
+.container {
+    display: flex;
+    height: 100vh;
+
+    .form_container {
+        align-self: center;
+        flex: 3;
+
+        form {
+            border-radius: .6rem;
+            box-shadow: @drop-shadow;
+            margin: 0 auto;
+            max-width: 45rem;
+            padding: 4rem;
+
+            h1 {
+                color: @color-primary-dark;
+                font-size: 4rem;
+                font-weight: 600;
+                margin-bottom: 2rem;
+            }
+
+            button[type="submit"] {
+                display: block;
+                margin: 4rem auto 5rem;
+            }
+        }
+    }
+
+    .form {
+
+        &_title {
+            color: @color-primary;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 4rem;
+        }
+
+        &_group {
+            color: @color-primary-dark;
+            display: flex;
+            flex-direction: column;
+
+            &:not(:last-of-type) {
+                margin-bottom: 2.8rem;
+            }
+
+            label {
+                align-items: center;
+                display: flex;
+                font-weight: 300;
+                justify-content: space-between;
+                margin-bottom: .5rem;
+                
+                a {
+                    color: @color-black;
+                    font-weight: 300;
+                    font-size: 1.4rem;
+                }
+            }
+
+            input {
+                background: @color-primary-lighter;
+                border-bottom: 2px solid transparent;
+                border-bottom: 2px solid transparent;
+                border-radius: .4rem;
+                border: none;
+                font-size: 1.4rem;
+                outline: none;
+                padding: 1.7rem 1rem;
+                &.error {
+                    background: @color-red-light;
+                    &:focus {
+                        border-bottom: 2px solid @color-red;
+                    }
+                }
+
+                &:focus {
+                    border-bottom: 2px solid @color-primary;
+                }
+            }
+        }
+
+        &_error {
+            color: @color-red;
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-top: .5rem;
+        }
+        
+        &_account {
+            color: @color-grey-1;
+            text-align: center;
+        } 
+
+        &_policy {
+            color: @color-primary-dark;
+            margin-top: 3.3rem;
+            text-align: center;
+        }
+    }
+
+    .illustration_container {
+        align-items: center;
+        background: @color-primary-light;
+        display: flex;
+        flex: 2;
+
+        @media only screen and (max-width: @bp-medium) {
+            display: none;       
+        }
+
+        img{
+            height: auto;
+            transform: translateX(-7rem);
+            width: 50rem;
+        }
+    }
+}
