@@ -68,6 +68,10 @@
 .message {
     .outline_container();
 
+    @media screen and (max-width: @bp-small) {
+        text-align: center !important;
+    }
+    
     &:not(:last-of-type){
         margin-bottom: 2rem;
     }
@@ -100,7 +104,7 @@
             @media screen and (max-width: @bp-small) {
                 font-size: 1.4rem;
             }
-            
+
             &.message_edit {
                 color: @color-primary;
             }
