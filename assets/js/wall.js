@@ -9,11 +9,7 @@ window.addEventListener("load", () => {
 
     /* Toggling of Modals */
 
-    const modals = document.querySelectorAll(".modal");
     const modalButtons = document.querySelectorAll(".modal_btn");
-    const modalBodies = document.querySelectorAll(".modal_body");
-    const modalCancels = document.querySelectorAll(".modal_cancel");
-    const modalCloses = document.querySelectorAll(".modal_close");
 
     modalButtons.forEach(modalButton => {
         modalButton.addEventListener("click", (e) => {
@@ -23,28 +19,15 @@ window.addEventListener("load", () => {
         });
     });
 
-    modals.forEach(modal => {
-        modal.addEventListener("click", (e) => {
-            toggleModal(e.target);
-        });
-    });
-
-    modalCancels.forEach(modalCancel => {
-        modalCancel.addEventListener("click", (e) => {
-            toggleModal(e.target.closest('.modal'));
-        });
-    });
-
-    modalCloses.forEach(modalClose => {
-        modalClose.addEventListener("click", (e) => {
-            toggleModal(e.target.closest(".modal"));
-        });
-    });
-
-    modalBodies.forEach(modalBody => {
-        modalBody.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
+    document.addEventListener("click", (e) => {
+        if(
+            e.target.matches(".modal") ||
+            e.target.matches(".modal_close") || 
+            e.target.matches(".modal_cancel")
+        ){
+            let targetModal = e.target.closest(".modal");
+            toggleModal(targetModal);
+        }
     });
 
     /*  End of Toggling of Modals */
