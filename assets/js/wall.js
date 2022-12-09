@@ -2,8 +2,7 @@ window.addEventListener("load", () => {
 
     let selectedElement;
     const messagesContainer = document.querySelector("#messages_container");
-    const messageTemplate = document.querySelector("[type='text/html']#message_template");
-    const updateFormTemplate = document.querySelector("[type='text/html']#update_form_template");
+    const messageTemplate = document.querySelector("#message_template");
     const messageCount = document.querySelector("#message_count");
     const noMessage = document.querySelector(".no_message");
 
@@ -32,36 +31,49 @@ window.addEventListener("load", () => {
 
     /*  End of Toggling of Modals */
 
+    /* Event Delegation For Form Submit */
+
+    messagesContainer.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let targetClass = e.target.className.split(" ")[0];
+        formSubmit?.[targetClass]?.(e.target);
+    })
+
+    const formSubmit = {
+        update_form: (target) => {
+            let targetMessageContent = target.closest('.message').querySelector('.message_content');
+            let newMessage = target.elements.content.value;
+            targetMessageContent.querySelector("p").textContent = newMessage;
+            target.classList.add("hide");
+            targetMessageContent.classList.remove("hide");
+        },
+        message_form: (target) => {
+            let targetCommentsContainer = target.closest('.message').querySelector('.comments_container');
+            addComment(targetCommentsContainer, target);
+        }
+    }
+
+    /* End Event Delegation For Form Submit */
+
     /* Creating Message */
 
     const createMessageForm = document.querySelector("#create_message_form");
-    const btnCreateMessageSubmit = createMessageForm.querySelector("button[type=submit]");
-
-    /* Create Message Submit Event */
-
-    createMessageForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const newMessage = e.target.elements.content.value;
-        toggleModal(e.target.closest(".modal"));
-        addMessage(newMessage);
-        e.target.reset();
-        btnCreateMessageSubmit.setAttribute("disabled", true);
-    });
-
+    createMessageForm.addEventListener("submit", addMessage);
     validateForm(createMessageForm);
 
     /* End of Creating Message */
 
-    /* Deleting Message */
+    /* Deleting Message / Comment */
 
-    const deleteMessageForm = document.querySelector("#delete_form");
+    const deleteForm = document.querySelector("#delete_form");
 
-    deleteMessageForm.addEventListener("submit", (e) => {
+    deleteForm.addEventListener("submit", (e) => {
         e.preventDefault();
         toggleModal(e.target.closest(".modal"));
 
         if(selectedElement?.parentNode?.id =="messages_container"){
             removeMessage(selectedElement);
+            selectedElement.remove();
         }
         else if(selectedElement?.parentNode?.className =="comments_container"){
             removeComment(selectedElement);
@@ -70,9 +82,9 @@ window.addEventListener("load", () => {
         selectedElement = null;
     });
 
-    /* End of Deleting Message */
+    /* End of Deleting Message / Comment */
 
-    /* Click Event Bubbling for Message Container */
+    /* Click Event Delegation for Message Container */
 
     messagesContainer.addEventListener("click", (e) => {
         let targetClass = e.target.className.split(" ")[0];
@@ -84,7 +96,7 @@ window.addEventListener("load", () => {
         }
     });
 
-    /* End of Click Event Bubbling for Message Container */
+    /* End of Click Delegation Bubbling for Message Container */
 
     /* Condition Functions For Messages */
 
@@ -102,10 +114,16 @@ window.addEventListener("load", () => {
             toggleModal(targetModal);
         },
         message_edit: (target) => {
+            let targetMessageContent = target.closest(".message_content");
             let targetMessage = target.closest(".message");
-            let targetMessageContent = targetMessage.querySelector(".message_content");
+            let targetUpdateForm = targetMessage.querySelector(".update_form");
+
             targetMessageContent.classList.add("hide");
-            addEditForm(targetMessage);
+            targetUpdateForm.classList.remove("hide");
+        },
+        cancel_edit: (target) => {
+            target.closest(".update_form").classList.add("hide");
+            target.closest(".message").querySelector('.message_content').classList.remove("hide");
         }
     };
 
@@ -122,10 +140,16 @@ window.addEventListener("load", () => {
             toggleModal(targetModal);
         },
         message_edit: (target) => {
+            let targetMessageContent = target.closest(".message_content");
             let targetMessage = target.closest(".message");
-            let targetMessageContent = targetMessage.querySelector(".message_content");
+            let targetUpdateForm = targetMessage.querySelector(".update_form");
+
             targetMessageContent.classList.add("hide");
-            addEditForm(targetMessage, "Comment Update");
+            targetUpdateForm.classList.remove("hide");
+        },
+        cancel_edit: (target) => {
+            target.closest(".update_form").classList.add("hide");
+            target.closest(".message").querySelector('.message_content').classList.remove("hide");
         }
     };
 
@@ -133,86 +157,62 @@ window.addEventListener("load", () => {
 
     /* Render Functions */
 
-    function addMessage(newMessage){
-        let newMessageTemplate = messageTemplate.cloneNode(true).innerHTML;
-        messagesContainer.insertAdjacentHTML("afterbegin", newMessageTemplate);
-        
-        let newMessageContainer = messagesContainer.querySelector(".message");
-        newMessageContainer.querySelector(".message_content>p").textContent = newMessage;
+    function addMessage(e){
+        e.preventDefault();
+        let newMessageElement = messageTemplate.cloneNode(true);
+        let newMessage = e.target.elements.content.value;
+        let submitBtn = e.target.querySelector("button[type='submit']");
 
-        incrementMessageCount(1);
+        newMessageElement.querySelector(".message_content>p").textContent = newMessage;
+        newMessageElement.classList.remove("hide");
+        newMessageElement.removeAttribute("id");
+        newMessageElement.querySelector(".update_form textarea").value = newMessage;
+        messagesContainer.prepend(newMessageElement);
+        updateCount(messagesContainer, messageCount);
+        submitBtn.setAttribute("disabled", true);
+        e.target.reset();
+        toggleModal(e.target.closest(".modal"));
 
         /* Add Event Listener to it's form */
-        let addCommentForm = newMessageContainer.querySelector(".message_form");
+        let addCommentForm = newMessageElement.querySelector(".message_form");
+        let updateForm = newMessageElement.querySelector(".update_form");
+
         validateForm(addCommentForm);
+        validateForm(updateForm);
+    }
 
-        addCommentForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            let newComment = e.target.elements.content.value;
-            addComment(newMessageContainer, newComment);
-            e.target.reset();
-            addCommentForm.querySelector("button[type='submit']").setAttribute("disabled", true);
-        });
+    function addComment(containerElement, formElement){
+        let newCommentElement = messageTemplate.cloneNode(true);
+        let newMessage = formElement.elements.content.value;
+        let submitBtn = formElement.querySelector("button[type='submit']");
+        let commentCount = formElement.closest(".message").querySelector(".message_comment span");
 
+        newCommentElement.querySelector(".message_content>p").textContent = newMessage;
+        newCommentElement.classList.remove("hide");
+        newCommentElement.querySelector(".update_form textarea").value = newMessage;
+        newCommentElement.querySelector(".message_comment").remove();
+        newCommentElement.querySelector(".message_comments").remove();
+        containerElement.prepend(newCommentElement);
+
+        updateCount(containerElement, commentCount);
+        submitBtn.setAttribute("disabled", true);
+        formElement.reset();
+
+        /* Add Event Listener to it's form */
+        let updateForm = newCommentElement.querySelector(".update_form");
+        validateForm(updateForm);
     }
 
     function removeMessage(messageElement){
         messageElement.remove();
-        incrementMessageCount(-1);
+        updateCount(messagesContainer, messageCount);
     }
 
     function removeComment(commentElement){
         let commentCount = commentElement.parentNode.closest(".message").querySelector(".message_actions .message_comment span");
-        commentCount.textContent = +commentCount.textContent - 1;
+        let commentContainer = commentElement.closest(".comments_container");
         commentElement.remove();
-    }
-
-    function addEditForm(containerElement, btnText = "Message Update"){
-        let messageContentElement = containerElement.querySelector(".message_content");
-        let formElement = updateFormTemplate.cloneNode(true).innerHTML;
-
-        containerElement.insertAdjacentHTML("afterbegin", formElement);
-
-        let contentCopy = messageContentElement.querySelector("p").textContent;
-        containerElement.querySelector("form textarea").value = contentCopy;
-        containerElement.querySelector("form button").textContent = btnText;
-
-        let newFormElement = containerElement.querySelector("form");
-
-        validateForm(newFormElement);
-        newFormElement.querySelector(".cancel_edit").addEventListener("click", () => {
-            removeEditForm(containerElement, messageContentElement);
-        });
-
-        newFormElement.addEventListener("submit", (e) => {
-            e.preventDefault();
-            let newContent = e.target.elements.content.value;
-            editMessage(containerElement, messageContentElement, newContent);
-        });
-
-    }
-
-    function removeEditForm(containerElement, messageContentElement){
-        messageContentElement.classList.remove("hide");
-        containerElement.querySelector("form").remove();
-    }
-
-    function editMessage(containerElement, messageContentElement, newContent){
-        messageContentElement.querySelector("p").textContent = newContent;
-        messageContentElement.classList.remove("hide");
-        containerElement.querySelector("form").remove();
-    }
-
-    function addComment(messageContainer, newComment){
-        let commentCount = messageContainer.querySelector(".message_actions .message_comment span");
-        let newCommentTemplate = messageTemplate.cloneNode(true).innerHTML;
-        let commentContainer = messageContainer.querySelector(".comments_container");
-
-        commentContainer.insertAdjacentHTML("afterbegin", newCommentTemplate);
-        commentContainer.querySelector(".message_content>p").textContent = newComment;
-        commentContainer.querySelector(".message_comment").remove();
-        commentContainer.querySelector(".message_comments").remove();
-        commentCount.textContent = +commentCount.textContent + 1;
+        updateCount(commentContainer ,commentCount);
     }
 
     /* End of Render Functions */
@@ -223,13 +223,14 @@ window.addEventListener("load", () => {
         modalElement.classList.toggle("show");
     }
 
-    function incrementMessageCount(value){
-        messageCount.textContent = +messageCount.textContent + value;
-        if(+messageCount.textContent <= 0){
-            noMessage.classList.remove("hide");
-        } 
-        else {
+    function updateCount(containerElement, countElement){
+        let newCount = containerElement.children.length;
+        countElement.textContent = newCount; 
+        if(newCount >= 0){
             noMessage.classList.add("hide");
+        }
+        else {
+            noMessage.classList.remove("hide");
         }
     }
 

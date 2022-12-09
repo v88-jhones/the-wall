@@ -30,11 +30,11 @@
                     <p><span id="message_count">0</span> messages arranged by latest posted</p>
                     <button class="btn btn_primary btn_small modal_btn" data-target="create_modal">Create Message</button>
                 </div>
+                <div class="no_message">
+                    <img src="../assets/images/no-message.svg" alt="Empty basket">
+                    <p>No Posted Message Yet</p>
+                </div>
                 <div id="messages_container">
-                    <div class="no_message">
-                        <img src="../assets/images/no-message.svg" alt="Empty basket">
-                        <p>No Posted Message Yet</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -70,50 +70,43 @@
         <!-- To be clone -->
 
         <!-- Message Template -->
-        <script type="text/html" id="message_template">
-            
-            <div class="message">
-                <div class="message_content">
-                    <p>Message Content</p>
-                    <div class="message_actions">
-                        <button class="message_comment">
-                            <img src="../assets/images/message.svg" alt="Message icon">
-                            <span>0</span> Comment
-                        </button>
-                        <button class="message_edit">
-                            <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
-                            Edit
-                        </button>
-                        <button class="message_delete modal_btn" data-target="delete_modal">
-                            <img src="../assets/images/delete.svg" alt="Delete icon">
-                            Delete
-                        </button>
-                        <button class="message_user">
-                            <img src="../assets/images/user-placeholder.svg" alt="User icon">
-                            <span>You</span> - Few seconds ago                                
-                        </button>
-                    </div>
-                </div>
-                <div class="message_comments hide">
-                    <form action="#" class="message_form">
-                        <textarea name="content" placeholder="Type your comment here."></textarea>
-                        <button type="submit" class="btn btn_primary btn_small" disabled>Post Comment</button>
-                    </form>
-                    <div class="comments_container">
-                    </div>
+        <div class="message hide" id="message_template">
+            <div class="message_content">
+                <p>Message Content</p>
+                <div class="message_actions">
+                    <button class="message_comment">
+                        <img src="../assets/images/message.svg" alt="Message icon">
+                        <span>0</span> Comment
+                    </button>
+                    <button class="message_edit">
+                        <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
+                        Edit
+                    </button>
+                    <button class="message_delete modal_btn" data-target="delete_modal">
+                        <img src="../assets/images/delete.svg" alt="Delete icon">
+                        Delete
+                    </button>
+                    <button class="message_user">
+                        <img src="../assets/images/user-placeholder.svg" alt="User icon">
+                        <span>You</span> - Few seconds ago                                
+                    </button>
                 </div>
             </div>
-        </script>
-
-        <!-- Update Form Template -->
-        <script type="text/html" id="update_form_template">
-            <form action="#" class="update_form">
+            <form action="#" class="update_form hide">
                 <textarea name="content"></textarea>
                 <div>
                     <a href="#" class="cancel_edit">Cancel</a>
                     <button type="submit" class="btn btn_primary btn_small">Update Message</button>
                 </div>
             </form>
-        </script>
+            <div class="message_comments hide">
+                <form action="#" class="message_form">
+                    <textarea name="content" placeholder="Type your comment here."></textarea>
+                    <button type="submit" class="btn btn_primary btn_small" disabled>Post Comment</button>
+                </form>
+                <div class="comments_container">
+                </div>
+            </div>
+        </div>
     </body>
 </html>
