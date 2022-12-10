@@ -1,4 +1,4 @@
-@import 'global.less';
+@import "global.less";
 
 .container {
     margin: 0 auto;
@@ -7,9 +7,9 @@
 
 .nav {
     background: @color-white;
-    border-radius: .6rem;
-    box-shadow: @drop-shadow;
+    box-shadow: @drop-shadow-light;
     padding: 3rem;
+    color: @color-primary-dark;
 
     .container {
         align-items: center;
@@ -57,6 +57,10 @@
         justify-content: space-between;
         margin-bottom: 4.5rem;
 
+        p {
+            color: @color-grey-2;
+        }
+
         @media only screen and (max-width: @bp-small) {
             flex-direction: column;
             text-align: center;
@@ -76,8 +80,9 @@
         margin-bottom: 2rem;
     }
 
-    > p {
+    p {
         color: @color-primary-dark;
+        font-weight: 300;
     }
 
     &_actions {
@@ -159,15 +164,20 @@ textarea {
     border-radius: .6rem;
     border: 1px solid @color-primary-lighter;
     color: @color-primary-dark;
-    height: 8rem;
+    height: 8.4rem;
     outline: none;
     padding: 1rem;
-    padding: 1rem;
+    font-size: 1.6rem;
     resize: none;
     width: 100%;
 
     &:focus {
-        border-bottom: 1px solid @color-primary;
+        border: 1px solid @color-primary;
+    }
+
+    &::placeholder {
+        color: rgba(@color-primary-dark, .5);
+        font-weight: 300;
     }
 }
 
@@ -176,13 +186,12 @@ textarea {
     font-weight: 600;
 }
 
-.no_message {
-    margin-top: 20rem;
+#no_message {
+    margin-top: 14rem;
     text-align: center;
     
     p {
         color: @color-grey-3;
-        text-shadow: @drop-shadow;
     }
 }
 
@@ -213,7 +222,7 @@ textarea {
     }
 
     &_title {
-        font-size: 2.7rem;
+        font-size: 2.6rem;
         font-weight: 500;
         margin-bottom: 3rem;
     }
@@ -249,15 +258,22 @@ textarea {
     }
 
     textarea {
-        height: 15rem;
+        height: 18.5rem;
+        font-size: 1.6rem;
+
+        &::placeholder {
+            color: rgba(@color-primary-dark, .5);
+            font-weight: 300;
+        }
     }
 }
 
-#delete_modal {
+#delete_message_modal,
+#delete_comment_modal {
     .modal_body {
         width: 54rem;
         
-        form div {
+        form {
             align-items: center;
             display: flex;
             gap: 2rem;

@@ -28,14 +28,14 @@
             <div class="main">
                 <div class="main_header">
                     <p><span id="message_count">0</span> messages arranged by latest posted</p>
-                    <button class="btn btn_primary btn_small modal_btn" data-target="create_modal">Create Message</button>
+                    <button id="btn_create" type="button" class="btn btn_primary btn_small modal_btn" data-target="create_modal" id="">Create Message</button>
                 </div>
-                <div class="no_message">
+                <div id="no_message">
                     <img src="../assets/images/no-message.svg" alt="Empty basket">
                     <p>No Posted Message Yet</p>
                 </div>
-                <div id="messages_container">
-                </div>
+                <ul id="messages_container">
+                </ul>
             </div>
         </div>
 
@@ -49,64 +49,103 @@
                         <button type="submit" class="btn btn_primary btn_small" disabled>Post Message</button>
                     </div>
                 </form>
-                <button class="modal_close"></button>
+                <button type="button" class="modal_close"></button>
             </div>
         </div>
-        <div class="modal" id="delete_modal">
+
+        <div class="modal" id="delete_message_modal">
             <div class="modal_body">
                 <p class="modal_title">Confirm Delete Message</p>
                 <p class="modal_desc">Are you sure you want to remove this message?</p>
                 <p>This action cannot be undone.</p>
-                <form action="#" id="delete_form">
-                    <div>
-                        <a href="#" class="modal_cancel">Cancel</a>
-                        <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
-                    </div>
+                <form action="#" id="delete_message_form">
+                    <a href="#" class="modal_cancel">Cancel</a>
+                    <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
                 </form>
-                <button class="modal_close"></button>
+                <button type="button" class="modal_close"></button>
+            </div>
+        </div>
+
+        <div class="modal" id="delete_comment_modal">
+            <div class="modal_body">
+                <p class="modal_title">Confirm Delete Comment</p>
+                <p class="modal_desc">Are you sure you want to remove this comment?</p>
+                <p>This action cannot be undone.</p>
+                <form action="#" id="delete_comment_form">
+                    <a href="#" class="modal_cancel">Cancel</a>
+                    <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
+                </form>
+                <button type="button" class="modal_close"></button>
             </div>
         </div>
 
         <!-- To be clone -->
-
-        <!-- Message Template -->
-        <div class="message hide" id="message_template">
-            <div class="message_content">
-                <p>Message Content</p>
-                <div class="message_actions">
-                    <button class="message_comment">
-                        <img src="../assets/images/message.svg" alt="Message icon">
-                        <span>0</span> Comment
-                    </button>
-                    <button class="message_edit">
-                        <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
-                        Edit
-                    </button>
-                    <button class="message_delete modal_btn" data-target="delete_modal">
-                        <img src="../assets/images/delete.svg" alt="Delete icon">
-                        Delete
-                    </button>
-                    <button class="message_user">
-                        <img src="../assets/images/user-placeholder.svg" alt="User icon">
-                        <span>You</span> - Few seconds ago                                
-                    </button>
+        <ul>
+            <!-- Message Template -->
+            <li class="message hide" id="message_template">
+                <div class="message_content">
+                    <p>Message Content</p>
+                    <div class="message_actions">
+                        <button type="button" class="message_comment">
+                            <img src="../assets/images/message.svg" alt="Message icon">
+                            <span>0</span> Comment
+                        </button>
+                        <button type="button" class="message_edit">
+                            <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
+                            Edit
+                        </button>
+                        <button type="button" class="message_delete modal_btn" data-target="delete_message_modal">
+                            <img src="../assets/images/delete.svg" alt="Delete icon">
+                            Delete
+                        </button>
+                        <button type="button" class="message_user">
+                            <img src="../assets/images/user-placeholder.svg" alt="User icon">
+                            <span>You</span> - Few seconds ago                                
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <form action="#" class="update_form hide">
-                <textarea name="content"></textarea>
-                <div>
-                    <a href="#" class="cancel_edit">Cancel</a>
-                    <button type="submit" class="btn btn_primary btn_small">Update Message</button>
-                </div>
-            </form>
-            <div class="message_comments hide">
-                <form action="#" class="message_form">
-                    <textarea name="content" placeholder="Type your comment here."></textarea>
-                    <button type="submit" class="btn btn_primary btn_small" disabled>Post Comment</button>
+                <form action="#" class="update_form hide">
+                    <textarea name="content"></textarea>
+                    <div>
+                        <a href="#" class="cancel_edit">Cancel</a>
+                        <button type="submit" class="btn btn_primary btn_small">Update Message</button>
+                    </div>
                 </form>
-                <div class="comments_container">
+                <div class="message_comments hide">
+                    <form action="#" class="message_form">
+                        <textarea name="content" placeholder="Type your comment here."></textarea>
+                        <button type="submit" class="btn btn_primary btn_small" disabled>Post Comment</button>
+                    </form>
+                    <div class="comments_container"></div>
                 </div>
-            </div>
-        </div>
+            </li>
+            <!-- Comment Template -->
+            <li class="message hide" id="comment_template">
+                <div class="message_content">
+                    <p>Message Content</p>
+                    <div class="message_actions">
+                        <button type="button" class="message_edit">
+                            <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
+                            Edit
+                        </button>
+                        <button type="button" class="message_delete modal_btn" data-target="delete_comment_modal">
+                            <img src="../assets/images/delete.svg" alt="Delete icon">
+                            Delete
+                        </button>
+                        <button type="button" class="message_user">
+                            <img src="../assets/images/user-placeholder.svg" alt="User icon">
+                            <span>You</span> - Few seconds ago                                
+                        </button>
+                    </div>
+                </div>
+                <form action="#" class="update_form hide">
+                    <textarea name="content"></textarea>
+                    <div>
+                        <a href="#" class="cancel_edit">Cancel</a>
+                        <button type="submit" class="btn btn_primary btn_small">Update Message</button>
+                    </div>
+                </form>
+            </li>
+        </ul>
     </body>
 </html>

@@ -1,36 +1,36 @@
 window.addEventListener("load", () => {
 
-    const loginForm = document.querySelector("#login_form"); 
+    const login_form = document.querySelector("#login_form"); 
 
-    loginForm.addEventListener("submit", e => {
+    login_form.addEventListener("submit", e => {
         e.preventDefault();
 
-        let formData = getFormData(e.target);
-        let errors = validateData(formData);
+        let form_data = get_form_data(e.target);
+        let errors = validate_data(form_data);
 
         if(errors){
-            resetErrors(e.target);
-            renderErrors(errors, e.target);
+            reset_errors(e.target);
+            render_errors(errors, e.target);
         }
         else{
             window.location.href = "/views/wall.html";
         }
     });
 
-    function validateData(formData){
+    function validate_data(form_data){
         let errors = {};
 
-        if(formData.email === ""){
+        if(form_data.email === ""){
             errors.email = "Email cannot be empty";
         }
-        else if(formData.email.split("@")[1] == null){
+        else if(form_data.email.split("@")[1] == null){
             errors.email = "Email must be valid";
         }
-        else if (formData.email.split("@")[1].split(".")[1] == null){
+        else if (form_data.email.split("@")[1].split(".")[1] == null){
             errors.email = "Email must be valid";
         }
 
-        if(formData.password === ""){
+        if(form_data.password === ""){
             errors.password = "Password cannot be empty";
         }
  

@@ -1,4 +1,4 @@
-@import 'global.less';
+@import "global.less";
 
 .container {
     display: flex;
@@ -15,6 +15,13 @@
             max-width: 45rem;
             padding: 4rem;
 
+            h4 {
+                color: @color-primary;
+                font-size: 2.2rem;
+                font-weight: 600;
+                margin-bottom: 4rem;
+            }
+
             h1 {
                 color: @color-primary-dark;
                 font-size: 4rem;
@@ -24,19 +31,12 @@
 
             button[type="submit"] {
                 display: block;
-                margin: 4rem auto 5rem;
+                margin: 4rem auto 3.5rem;
             }
         }
     }
 
     .form {
-
-        &_title {
-            color: @color-primary;
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 4rem;
-        }
 
         &_group {
             color: @color-primary-dark;
@@ -50,12 +50,13 @@
             label {
                 align-items: center;
                 display: flex;
-                font-weight: 300;
+                font-weight: 400;
                 justify-content: space-between;
                 margin-bottom: .5rem;
+                color: @color-primary-dark;
                 
                 a {
-                    color: @color-black;
+                    color: @color-grey-2;
                     font-weight: 300;
                     font-size: 1.4rem;
                 }
@@ -63,11 +64,11 @@
 
             input {
                 background: @color-primary-lighter;
-                border-bottom: 2px solid transparent;
+                border: none;
                 border-bottom: 2px solid transparent;
                 border-radius: .4rem;
-                border: none;
                 font-size: 1.4rem;
+                font-weight: 500;
                 outline: none;
                 padding: 1.7rem 1rem;
                 &.error {
@@ -116,6 +117,13 @@
             height: auto;
             transform: translateX(-7rem);
             width: 50rem;
+        }
+    }
+
+    #register_form{
+        button[type="submit"] {
+            display: block;
+            margin: 3.5rem auto;
         }
     }
 }
