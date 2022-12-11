@@ -2,7 +2,7 @@ const FORM_VALIDATION = {
     password_length: 8
 };
 
-function getFormData(form_element){
+function get_form_data(form_element){
     let form_data = {};
 
     Object.keys(form_element.elements).forEach(key => {
@@ -15,7 +15,7 @@ function getFormData(form_element){
     return form_data;
 }
 
-function renderErrors(errors, form_element){
+function render_errors(errors, form_element){
       
     Object.keys(errors).forEach(key => {
         const paragraph = document.createElement('p');
@@ -28,7 +28,7 @@ function renderErrors(errors, form_element){
     })
 }
 
-function resetErrors(form_element){
+function reset_errors(form_element){
     form_element.querySelectorAll(".form_error").forEach(e => e.remove());
     form_element.querySelectorAll(".error").forEach(e => e.classList.remove('error'));
 }
