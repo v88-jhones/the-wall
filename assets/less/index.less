@@ -1,72 +1,22 @@
-@import 'global.less';
+@import "global.less";
 
 .container {
-    min-height: 100vh;
     display: flex;
+    height: 100vh;
 
-    .form {
-        flex: 3;
+    .form_container {
         align-self: center;
-
-        &_group {
-
-            display: flex;
-            flex-direction: column;
-            color: @color-primary-dark;
-
-            &:not(:last-of-type) {
-                margin-bottom: 2.8rem;
-            }
-
-            label {
-                margin-bottom: .7rem;
-                display: flex;
-                justify-content: space-between;
-
-                a {
-                    font-size: 1.4rem;
-                    font-weight: light;
-                    color: @color-black-light;
-                }
-            }
-
-            input {
-                padding: 1.7rem 1rem;
-                background: @color-primary-lighter;
-                border: none;
-                outline: none;
-
-                &.error {
-                    background: @color-red-light;
-                }
-            }
-
-            input:focus {
-                border-bottom: 2px solid @color-primary;
-
-                &.error {
-                    border-bottom: 2px solid @color-red;
-                }
-            }
-
-            p.error {
-                color: @color-red;
-                font-size: 1.4rem;
-                font-weight: light;
-                margin-top: .5rem;
-            }
-
-        }
+        flex: 3;
 
         form {
-            width: 45rem;
-            margin: 0 auto;
-            background: @color-white;
-            box-shadow: @drop-shadow-dark;
-            padding: 4rem;
             border-radius: .6rem;
+            box-shadow: @drop-shadow-light;
+            margin: 0 auto;
+            max-width: 45rem;
+            background: @color-white;
+            padding: 4rem;
 
-            h3 {
+            h4 {
                 color: @color-primary;
                 font-size: 2.2rem;
                 font-weight: 600;
@@ -74,45 +24,112 @@
             }
 
             h1 {
-                color: @color-primary-dark;
-                margin-bottom: 1.8rem;
+                font-size: 4rem;
+                font-weight: 600;
+                margin-bottom: 2rem;
             }
 
-            input[type='submit'] {
-                margin: 4rem auto 5rem;
+            button[type="submit"] {
                 display: block;
+                margin: 4rem auto 3.5rem;
+            }
+        }
+    }
+
+    .form {
+        &_group {
+            color: @color-primary-dark;
+            display: flex;
+            flex-direction: column;
+
+            &:not(:last-of-type) {
+                margin-bottom: 2.8rem;
             }
 
-            > p {
-                text-align: center;
+            label {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: .5rem;
+                color: @color-primary-dark;
+                
                 a {
-                    color: @color-primary;
+                    color: @color-grey-2;
+                    font-weight: 300;
+                    font-size: 1.4rem;
                 }
-
-                &.account {
-                    color: @color-black-lighter;
-                }                
-
-                &.terms {
-                    margin-top: 3.3rem;
-                }
-
             }
 
+            input {
+                background: @color-primary-lighter;
+                border-bottom: 2px solid transparent;
+                border-radius: .4rem;
+                border: 2px solid transparent;
+                font-size: 1.4rem;
+                font-weight: 400;
+                height: 5.5rem;
+                outline: none;
+                padding: 1.7rem 1rem;
+
+                &.error {
+                    background: @color-red-light;
+                    &:focus {
+                        border-bottom: 2px solid @color-red;
+                    }
+                }
+
+                &:focus {
+                    border-bottom: 2px solid @color-primary;
+                }
+
+                &::placeholder {
+                    color: @color-primary-darker;
+                }
+            }
+        }
+
+        &_error {
+            color: @color-red;
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-top: .5rem;
+        }
+        
+        &_footer {
+            color: @color-grey-1;
+            font-weight: 400;
+            text-align: center;
+        } 
+
+        &_policy {
+            color: @color-primary-dark;
+            margin-top: 3.3rem;
+            text-align: center;
+            font-weight: 300;
         }
     }
 
-    .illustration {
-        flex: 2;
-        background-color: @color-primary-light;
-        display: flex;
+    .illustration_container {
         align-items: center;
+        background: @color-primary-light;
+        display: flex;
+        flex: 2;
 
-        img {
-            width: 100%;
+        @media only screen and (max-width: @bp-medium) {
+            display: none;       
+        }
+
+        img{
             height: auto;
-            transform: translateX(-10rem);
+            transform: translateX(-7rem);
+            width: 50rem;
         }
     }
 
+    #register_form {
+        button[type="submit"] {
+            display: block;
+            margin: 3.5rem auto;
+        }
+    }
 }

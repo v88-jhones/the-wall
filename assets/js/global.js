@@ -1,31 +1,34 @@
-function getFormData(formElement) {
-    let FormData = {};
+const FORM_VALIDATION = {
+    password_length: 8
+};
 
-    Object.keys(formElement.elements).forEach(key => {
-        let element = formElement.elements[key];
-        if(element.type != 'submit'){
-            FormData[element.name] = element.value;
+function get_form_data(form_element){
+    let form_data = {};
+
+    Object.keys(form_element.elements).forEach(key => {
+        let element = form_element.elements[key];
+        if(element.type !== "submit"){
+            form_data[element.name] = element.value;
         }
-    })
+    });
 
-    return FormData;
+    return form_data;
 }
 
-function renderErrors(errors, formElement){
-    resetErrors();
-    
-    Object.keys(errors).forEach(val => {
-        console.log(val)
-        const para = document.createElement('p');
-        const node = document.createTextNode(errors[val]);
-        para.classList.add('error');
-        para.appendChild(node);
-        formElement.elements[val].classList.add('error');
-        formElement.elements[val].parentNode.append(para);
+function render_errors(errors, form_element){
+      
+    Object.keys(errors).forEach(key => {
+        const paragraph = document.createElement('p');
+        const textNode = document.createTextNode(errors[key]);
+        paragraph.classList.add('form_error');
+        paragraph.appendChild(textNode);
+
+        form_element.elements[key].classList.add('error');
+        form_element.elements[key].parentNode.append(paragraph);
     })
 }
 
-function resetErrors(){
-    document.querySelectorAll('p.error').forEach(e => e.remove());
-    document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+function reset_errors(form_element){
+    form_element.querySelectorAll(".form_error").forEach(e => e.remove());
+    form_element.querySelectorAll(".error").forEach(e => e.classList.remove('error'));
 }

@@ -1,51 +1,43 @@
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
 
-    const loginForm = document.querySelector('#login_form')
-    
-    loginForm.addEventListener('submit', e => {
+    const login_form = document.querySelector("#login_form"); 
+
+    login_form.addEventListener("submit", e => {
         e.preventDefault();
 
-        const formData = getFormData(loginForm);
-        const errors = vaildateData(formData);
+        let form_data = get_form_data(e.target);
+        let errors = validate_data(form_data);
 
         if(errors){
-            renderErrors(errors, loginForm);
-        } 
-        else{
-            window.location.href = '/views/wall.html';
+            reset_errors(e.target);
+            render_errors(errors, e.target);
         }
-
+        else{
+            window.location.href = "/views/wall.html";
+        }
     });
 
-
-    function vaildateData(data){
+    function validate_data(form_data){
         let errors = {};
 
-        if(data.email == ''){
-            errors.email = 'Email cannot be empty';
+        if(form_data.email === ""){
+            errors.email = "Email cannot be empty";
         }
-        else if(data.email.split('@')[1] == null){
-            errors.email = 'Email must be valid';
+        else if(form_data.email.split("@")[1] == null){
+            errors.email = "Email must be valid";
         }
-        else if(data.email.split('@')[1].split('.')[1] == null){
-            errors.email = 'Email must be valid'
+        else if (form_data.email.split("@")[1].split(".")[1] == null){
+            errors.email = "Email must be valid";
         }
 
-        if(data.password == ''){
-            errors.password = 'Password cannot be empty';
+        if(form_data.password === ""){
+            errors.password = "Password cannot be empty";
         }
-        else if(data.password.length < 8){
-            errors.password = 'Password must be atleast 8 characters';
-        }
-        
+ 
         if(Object.keys(errors).length > 0){
             return errors;
         }
 
         return false;
-
     }
-
-
-
-})
+});
