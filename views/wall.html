@@ -17,10 +17,8 @@
         <nav class="nav">
             <div class="container">
                 <p class="nav_title">The Wall Assignment</p>
-                <div class="nav_side">
-                    <p class="nav_name">Welcome, Jhones Digno</p>
-                    <a href="/views/">Logout</a>
-                </div>
+                <p class="nav_name">Welcome, Jhones Digno!</p>
+                <a href="/views/">Logout</a>
             </div>
         </nav>
 
@@ -28,7 +26,7 @@
             <div class="main">
                 <div class="main_header">
                     <p><span id="message_count">0</span> messages arranged by latest posted</p>
-                    <button id="btn_create" type="button" class="btn btn_primary btn_small modal_btn" data-target="create_modal" id="">Create Message</button>
+                    <button id="btn_create" type="button" class="btn btn_primary btn_small modal_btn" data-target="create_modal">Create Message</button>
                 </div>
                 <div id="no_message">
                     <img src="../assets/images/no-message.svg" alt="Empty basket">
@@ -41,13 +39,11 @@
 
         <div class="modal" id="create_modal">
             <div class="modal_body">
-                <p class="modal_title">Create a Message</p>
+                <h4>Create a Message</h4>
                 <form action="#" id="create_message_form">
-                    <textarea name="content" placeholder="Type your message here"></textarea>
-                    <div>
-                        <a href="#" class="modal_cancel">Cancel</a>
-                        <button type="submit" class="btn btn_primary btn_small" disabled>Post Message</button>
-                    </div>
+                    <textarea name="content" placeholder="Type your message here" tabindex="1"></textarea>
+                    <button type="button" class="modal_cancel" tabindex="3">Cancel</button>
+                    <button type="submit" class="btn btn_primary btn_small" tabindex="2" disabled>Post Message</button>
                 </form>
                 <button type="button" class="modal_close"></button>
             </div>
@@ -55,11 +51,11 @@
 
         <div class="modal" id="delete_message_modal">
             <div class="modal_body">
-                <p class="modal_title">Confirm Delete Message</p>
-                <p class="modal_desc">Are you sure you want to remove this message?</p>
+                <h4>Confirm Delete Message</h4>
+                <p>Are you sure you want to remove this message?</p>
                 <p>This action cannot be undone.</p>
                 <form action="#" id="delete_message_form">
-                    <a href="#" class="modal_cancel">Cancel</a>
+                    <button type="button" class="modal_cancel">Cancel</button>
                     <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
                 </form>
                 <button type="button" class="modal_close"></button>
@@ -68,11 +64,11 @@
 
         <div class="modal" id="delete_comment_modal">
             <div class="modal_body">
-                <p class="modal_title">Confirm Delete Comment</p>
-                <p class="modal_desc">Are you sure you want to remove this comment?</p>
+                <h4>Confirm Delete Comment</h4>
+                <p>Are you sure you want to remove this comment?</p>
                 <p>This action cannot be undone.</p>
                 <form action="#" id="delete_comment_form">
-                    <a href="#" class="modal_cancel">Cancel</a>
+                    <button type="button" class="modal_cancel">Cancel</button>
                     <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
                 </form>
                 <button type="button" class="modal_close"></button>
@@ -80,7 +76,7 @@
         </div>
 
         <!-- To be clone -->
-        <ul>
+        <ul class="hide">
             <!-- Message Template -->
             <li class="message hide" id="message_template">
                 <div class="message_content">
@@ -105,16 +101,14 @@
                     </div>
                 </div>
                 <form action="#" class="update_form hide">
-                    <textarea name="content"></textarea>
-                    <div>
-                        <a href="#" class="cancel_edit">Cancel</a>
-                        <button type="submit" class="btn btn_primary btn_small">Update Message</button>
-                    </div>
+                    <textarea name="content" tabindex="1"></textarea>
+                    <button type="button" class="cancel_edit" tabindex="2">Cancel</button>
+                    <button type="submit" class="btn btn_primary btn_small" tabindex="3">Update Message</button>
                 </form>
                 <div class="message_comments hide">
                     <form action="#" class="message_form">
-                        <textarea name="content" placeholder="Type your comment here."></textarea>
-                        <button type="submit" class="btn btn_primary btn_small" disabled>Post Comment</button>
+                        <textarea name="content" placeholder="Type your comment here." tabindex="1"></textarea>
+                        <button type="submit" class="btn btn_primary btn_small" tabindex="2" disabled>Post Comment</button>
                     </form>
                     <div class="comments_container"></div>
                 </div>
@@ -139,11 +133,9 @@
                     </div>
                 </div>
                 <form action="#" class="update_form hide">
-                    <textarea name="content"></textarea>
-                    <div>
-                        <a href="#" class="cancel_edit">Cancel</a>
-                        <button type="submit" class="btn btn_primary btn_small">Update Message</button>
-                    </div>
+                    <textarea name="content" tabindex="1"></textarea>
+                    <button type="button" class="cancel_edit" tabindex="3">Cancel</button>
+                    <button type="submit" class="btn btn_primary btn_small" tabindex="2">Update Comment</button>
                 </form>
             </li>
         </ul>
