@@ -5,19 +5,19 @@ window.addEventListener("load", () => {
     login_form.addEventListener("submit", e => {
         e.preventDefault();
 
-        let form_data = get_form_data(e.target);
-        let errors = validate_data(form_data);
+        let form_data = getFormData(e.target);
+        let errors = validateData(form_data);
 
         if(errors){
-            reset_errors(e.target);
-            render_errors(errors, e.target);
+            resetErrors(e.target);
+            renderErrors(errors, e.target);
         }
         else{
             window.location.href = "/views/wall.html";
         }
     });
 
-    function validate_data(form_data){
+    function validateData(form_data){
         let errors = {};
 
         if(form_data.email === ""){
