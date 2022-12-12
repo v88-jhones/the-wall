@@ -7,70 +7,19 @@ window.addEventListener("load", () => {
     /* Toggling of Modals */
     document.addEventListener("click", closeModalClick);
 
-    /* Event Delegation For Form Submit */
-    messages_container.addEventListener("submit", messageContainerSubmit);
-
     /* Creating Message */
     document.querySelector("#btn_create").addEventListener("click", createMessageClick);
     create_message_form.addEventListener("submit", addMessageSubmit);
     create_message_form.querySelector("textarea").addEventListener("input", validateInput);
 
-    /* Deleting Message */
+    /* Deleting */
     document.querySelector("#delete_message_form").addEventListener("submit", deleteMessageFormSubmit);
-    
-    /* Deleting Comment */
     document.querySelector("#delete_comment_form").addEventListener("submit", deleteCommentFormSubmit);
 
-    function addMessageSubmit(event){
-        event.preventDefault();
-        let target_form = event.target; 
-        let new_message_element = document.querySelector("#message_template").cloneNode(true);
-        let new_message = target_form.elements.content.value;
-        let submit_btn = target_form.querySelector("button[type='submit']");
-
-        new_message_element.classList.remove("hide");
-        new_message_element.removeAttribute("id");
-        new_message_element.querySelector(".message_content>p").textContent = new_message;
-        new_message_element.querySelector(".update_form textarea").value = new_message;
-        new_message_element.querySelector(".update_form .cancel_edit").addEventListener("click", cancelEditClick);
-        new_message_element.querySelector(".message_actions").addEventListener("click", messageActionsClick);
-        new_message_element.querySelector(".update_form textarea").addEventListener("input", validateInput);
-        new_message_element.querySelector(".message_form textarea").addEventListener("input", validateInput);
-        messages_container.prepend(new_message_element);
-
-        updateMessagesCount();
-        submit_btn.setAttribute("disabled", true);
-        target_form.reset();
-        toggleModal(target_form.closest(".modal"));
-    }
-
-    function messageActionsClick(event){
-        let target_class = event.target.className.split(" ")[0];
-        message_control?.[target_class]?.(event.target);
-    }
-
-    const message_control = {
-        message_comment: toggleComment,
-        message_delete: deleteMessage,
-        message_edit: editForm,
-    };
-
-    function deleteMessageFormSubmit(event){
-        event.preventDefault();
-        toggleModal(event.target.closest(".modal"));
-        selected_element.remove();
-        selected_element = null;
-        updateMessagesCount();
-    }
-
-    function deleteCommentFormSubmit(event){
-        event.preventDefault();
-        let message_container = selected_element.parentNode.closest(".message");
-        selected_element.remove();
-        selected_element = null;
-        updateCommentsCount(message_container);
-        toggleModal(event.target.closest(".modal"));
-    }
+    messages_container.addEventListener("submit", messageContainerSubmit);
+    messages_container.addEventListener("click", messageContainerClick);
+    messages_container.addEventListener("click", commentContainerClick);
+    messages_container.addEventListener("input", validateInput);
 
     function closeModalClick(event){
         const target = event.target;
@@ -89,34 +38,97 @@ window.addEventListener("load", () => {
         }
     }
 
-    function commentActionsClick(event){
-        let target_class = event.target.className.split(" ")[0];
-        comment_control?.[target_class]?.(event.target);
+    function createMessageClick(){
+        toggleModal(document.querySelector(`#create_modal`));
+        create_message_form.querySelector("textarea").focus();
     }
 
-    const comment_control = {
+    function addMessageSubmit(event){
+        event.preventDefault();
+        let create_message_form = event.target; 
+        let new_message_element = document.querySelector("#message_template").cloneNode(true);
+        let new_message = create_message_form.elements.content.value;
+        let submit_btn = create_message_form.querySelector("button[type='submit']");
+
+        new_message_element.classList.remove("hide");
+        new_message_element.removeAttribute("id");
+        new_message_element.querySelector(".message_content>p").textContent = new_message;
+        messages_container.prepend(new_message_element);
+
+        updateMessagesCount();
+        submit_btn.setAttribute("disabled", true);
+        create_message_form.reset();
+        toggleModal(create_message_form.closest(".modal"));
+    }
+    
+    function messageContainerClick(event){
+        let target_parent = event.target.parentNode.parentNode.className;
+        if(target_parent === "message_content" || target_parent === "message" ){
+            let target_class = event.target.className.split(" ")[0];
+            message_control?.[target_class]?.(event.target);
+        }
+    }
+
+    const message_control = {
+        message_comment: toggleComment,
         message_delete: deleteMessage,
-        message_edit: editForm,
+        message_edit: editMessage,
+        cancel_edit: cancelEditMessage
     };
 
     function toggleComment(target){
-        let target_comment_container = target.closest(".message").querySelector(".message_comments");
-        target_comment_container.classList.toggle("hide");
-        target_comment_container.querySelector("form textarea").focus();
+        let comment_container = target.closest(".message").querySelector(".message_comments");
+        comment_container.classList.toggle("hide");
+        comment_container.querySelector("form textarea").focus();
         target.classList.toggle("active");
     }
 
     function deleteMessage(target){
-        let target_id = target.getAttribute("data-target");
-        let target_modal = document.querySelector(`#${target_id}`);
+        let target_modal = document.getElementById(`delete_message_modal`);
         selected_element = target.closest(".message");
         toggleModal(target_modal);
     }
+
+    function editMessage(target){
+        let message_content = target.closest(".message_content");
+        let update_form = target.closest(".message").querySelector(".update_message_form");
+        let textarea = update_form.querySelector("textarea");
+
+        textarea.value = message_content.querySelector("p").textContent;
+        message_content.classList.add("hide");
+        update_form.classList.remove("hide");
+        textarea.focus();
+    }
+
+    function cancelEditMessage(target){
+        target.closest(".update_message_form").classList.add("hide");
+        target.closest(".message").querySelector(".message_content").classList.remove("hide");
+    }
+
+    function commentContainerClick(event){
+        let target_parent = event.target.parentNode.parentNode.className;
+        if(target_parent === "comment_content" || target_parent === "comment"){
+            let target_class = event.target.className.split(" ")[0];
+            comment_control?.[target_class]?.(event.target);
+        }
+    }
+
+    const comment_control = {
+        comment_delete: deleteComment,
+        comment_edit: editComment,
+        cancel_edit: cancelEditComment,
+    };
+
+    function deleteComment(target){
+        let target_modal = document.querySelector(`#delete_comment_modal`);
+        selected_element = target.closest(".comment");
+        toggleModal(target_modal);
+    }
         
-    function editForm(target){
-        let target_message_content = target.closest(".message_content");
-        let target_update_form = target.closest(".message").querySelector(".update_form");
-        let target_textarea = target_update_form.querySelector("textarea")
+    function editComment(target){
+        let target_message_content = target.closest(".comment_content");
+        let target_update_form = target.closest(".comment").querySelector(".update_comment_form");
+        let target_textarea = target_update_form.querySelector("textarea");
 
         target_textarea.value = target_message_content.querySelector("p").textContent;
 
@@ -125,10 +137,26 @@ window.addEventListener("load", () => {
         target_textarea.focus();
     }
 
-    function cancelEditClick(event){
-        let target_edit_button = event.target;
-        target_edit_button.closest(".update_form").classList.add("hide");
-        target_edit_button.closest(".message").querySelector(".message_content").classList.remove("hide");
+    function cancelEditComment(target){
+        target.closest(".update_comment_form").classList.add("hide");
+        target.closest(".comment").querySelector(".comment_content").classList.remove("hide");
+    }
+
+    function deleteMessageFormSubmit(event){
+        event.preventDefault();
+        toggleModal(event.target.closest(".modal"));
+        selected_element.remove();
+        selected_element = null;
+        updateMessagesCount();
+    }
+
+    function deleteCommentFormSubmit(event){
+        event.preventDefault();
+        let message_container = selected_element.parentNode.closest(".message");
+        selected_element.remove();
+        selected_element = null;
+        updateCommentsCount(message_container);
+        toggleModal(event.target.closest(".modal"));
     }
 
     function messageContainerSubmit(event){
@@ -139,7 +167,8 @@ window.addEventListener("load", () => {
 
     const form_submit = {
         message_form: addComment,
-        update_form: updateContent,
+        update_message_form: updateMessage,
+        update_comment_form: updateComment,
     }
 
     function addComment(target_form){
@@ -150,11 +179,7 @@ window.addEventListener("load", () => {
 
         new_comment_element.classList.remove("hide");
         new_comment_element.removeAttribute("id");
-        new_comment_element.querySelector(".message_content>p").textContent = new_message;
-        new_comment_element.querySelector(".update_form textarea").value = new_message;
-        new_comment_element.querySelector(".message_actions").addEventListener("click", commentActionsClick);
-        new_comment_element.querySelector(".update_form .cancel_edit").addEventListener("click", cancelEditClick);
-        new_comment_element.querySelector(".update_form textarea").addEventListener("input", validateInput);
+        new_comment_element.querySelector(".comment_content>p").textContent = new_message;
         target_container.prepend(new_comment_element);
 
         updateCommentsCount(target_form.closest(".message"));
@@ -163,7 +188,7 @@ window.addEventListener("load", () => {
         target_form.querySelector("textarea").focus();
     }
 
-    function updateContent(target){
+    function updateMessage(target){
         let target_message_content = target.closest(".message").querySelector(".message_content");
         let new_message = target.elements.content.value;
         target_message_content.querySelector("p").textContent = new_message;
@@ -171,12 +196,15 @@ window.addEventListener("load", () => {
         target_message_content.classList.remove("hide");
     }
 
-    /* Helper Functions */
-
-    function createMessageClick(){
-        toggleModal(document.querySelector(`#create_modal`));
-        create_message_form.querySelector("textarea").focus();
+    function updateComment(target){
+        let target_message_content = target.closest(".comment").querySelector(".comment_content");
+        let new_message = target.elements.content.value;
+        target_message_content.querySelector("p").textContent = new_message;
+        target.classList.add("hide");
+        target_message_content.classList.remove("hide");
     }
+
+    /* Helper Functions */
 
     function toggleModal(modal_element){
         modal_element.classList.toggle("show");

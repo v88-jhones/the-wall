@@ -70,7 +70,8 @@
     }
 }
 
-.message {
+.message,
+.comment {
     .outline_container();
 
     @media screen and (max-width: @bp-small) {
@@ -111,7 +112,8 @@
                 font-size: 1.4rem;
             }
 
-            &.message_edit {
+            &.message_edit, 
+            &.comment_edit {
                 color: @color-primary;
 
                 img {
@@ -148,7 +150,8 @@
     }
 }
 
-.update_form {
+.update_message_form,
+.update_comment_form {
     text-align: right;
 
     textarea {
