@@ -2,7 +2,7 @@ window.addEventListener("load", () => {
 
     const login_form = document.querySelector("#login_form"); 
 
-    login_form.addEventListener("submit", e => {
+    login_form.addEventListener("submit", (e) => {
         e.preventDefault();
 
         let form_data = getFormData(e.target);

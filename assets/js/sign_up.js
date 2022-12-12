@@ -2,7 +2,7 @@ window.addEventListener("load", () => {
 
     const register_form = document.querySelector("#register_form"); 
 
-    register_form.addEventListener("submit", e => {
+    register_form.addEventListener("submit", (e) => {
         e.preventDefault();
 
         let form_data = getFormData(e.target);
