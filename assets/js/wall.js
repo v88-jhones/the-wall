@@ -84,6 +84,7 @@ window.addEventListener("load", () => {
         comment_container.classList.toggle("hide");
         comment_container.querySelector("form textarea").focus();
         comment_container.querySelector("form textarea").value = "";
+        comment_container.querySelector("form button[type='submit']").setAttribute("disabled", true);
         comment_btn.classList.toggle("active");
     }
 
