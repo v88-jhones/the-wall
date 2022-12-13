@@ -28,6 +28,14 @@ function renderErrors(errors, form_element){
 }
 
 function resetErrors(form_element){
-    form_element.querySelectorAll(".form_error").forEach(e => e.remove());
-    form_element.querySelectorAll(".error").forEach(e => e.classList.remove('error'));
+    let error_texts = form_element.querySelectorAll(".form_error");
+    let error_inputs = form_element.querySelectorAll(".error");
+
+    for(let error_text of error_texts){
+        error_text.remove();
+    }
+
+    for(let errors_input of error_inputs){
+        errors_input.classList.remove('error');
+    }
 }

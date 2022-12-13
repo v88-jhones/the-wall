@@ -96,7 +96,8 @@ function clickDeleteMessageBtn(event){
     event.preventDefault();
     let delete_btn = event.target;
     let target_modal = document.querySelector("#delete_message_modal");
-    target_modal.querySelector("form input[name='message_id']").value = delete_btn.closest(".message").getAttribute("data-message-id");
+    let message_id = delete_btn.closest(".message").getAttribute("data-message-id");
+    target_modal.querySelector("form input[name='message_id']").value = message_id;
     toggleModal(target_modal);
 }
 
@@ -104,7 +105,8 @@ function clickDeleteCommentBtn(event){
     event.preventDefault();
     let delete_btn = event.target;
     let target_modal = document.querySelector("#delete_comment_modal");
-    target_modal.querySelector("form input[name='comment_id']").value = delete_btn.closest(".message").getAttribute("data-comment-id");
+    let comment_id = delete_btn.closest(".message").getAttribute("data-comment-id");
+    target_modal.querySelector("form input[name='comment_id']").value = comment_id;
     toggleModal(target_modal);
 }
     
