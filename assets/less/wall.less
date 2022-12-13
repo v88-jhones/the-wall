@@ -202,10 +202,6 @@ textarea {
 }
 
 .modal {
-    &.show {
-        display: block;
-    }
-
     background: rgba(@color-black, .5);
     color: @color-primary-dark;
     display: none;
@@ -216,6 +212,10 @@ textarea {
     top: 0;
     width: 100%;
     z-index: 99;
+
+    &.show {
+        display: block;
+    }
 
     &_body {
         background: @color-white;

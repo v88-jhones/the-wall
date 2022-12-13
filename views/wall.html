@@ -26,7 +26,7 @@
             <div class="main">
                 <div class="main_header">
                     <p><span id="message_count">0</span> messages arranged by latest posted</p>
-                    <button id="btn_create" type="button" class="btn btn_primary btn_small modal_btn" data-target="create_modal">Create Message</button>
+                    <button id="btn_create" type="button" class="btn btn_primary btn_small" data-target="create_modal">Create Message</button>
                 </div>
                 <div id="no_message">
                     <img src="../assets/images/no-message.svg" alt="Empty basket">
@@ -55,6 +55,7 @@
                 <p>Are you sure you want to remove this message?</p>
                 <p>This action cannot be undone.</p>
                 <form action="#" id="delete_message_form">
+                    <input type="hidden" name="message_id" value="">
                     <button type="button" class="modal_cancel">Cancel</button>
                     <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
                 </form>
@@ -68,6 +69,7 @@
                 <p>Are you sure you want to remove this comment?</p>
                 <p>This action cannot be undone.</p>
                 <form action="#" id="delete_comment_form">
+                    <input type="hidden" name="comment_id" value="">
                     <button type="button" class="modal_cancel">Cancel</button>
                     <button type="submit" class="btn btn_primary btn_small">Yes, Remove It.</button>
                 </form>
@@ -90,7 +92,7 @@
                             <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
                             Edit
                         </button>
-                        <button type="button" class="message_delete modal_btn" data-target="delete_message_modal">
+                        <button type="button" class="message_delete">
                             <img src="../assets/images/delete.svg" alt="Delete icon">
                             Delete
                         </button>
@@ -110,7 +112,7 @@
                         <textarea name="content" placeholder="Type your comment here." tabindex="1"></textarea>
                         <button type="submit" class="btn btn_primary btn_small" tabindex="2" disabled>Post Comment</button>
                     </form>
-                    <div class="comments_container"></div>
+                    <ul class="comments_container"></ul>
                 </div>
             </li>
             <!-- Comment Template -->
@@ -122,7 +124,7 @@
                             <img src="../assets/images/pencil-write.svg" alt="Pencil icon">
                             Edit
                         </button>
-                        <button type="button" class="message_delete modal_btn" data-target="delete_comment_modal">
+                        <button type="button" class="message_delete" data-target="delete_comment_modal">
                             <img src="../assets/images/delete.svg" alt="Delete icon">
                             Delete
                         </button>
