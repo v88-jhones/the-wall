@@ -104,6 +104,7 @@ window.addEventListener("load", () => {
         let update_form = edit_btn.closest(".message").querySelector(".update_form");
         let textarea = update_form.querySelector("textarea");
 
+        update_form.querySelector("button[type='submit']").removeAttribute("disabled");
         textarea.value = message_content.querySelector("p").textContent;
         message_content.classList.add("hide");
         update_form.classList.remove("hide");
