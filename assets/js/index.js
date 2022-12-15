@@ -5,13 +5,13 @@ window.addEventListener("load", () => {
 
 function submitLoginForm(event){
     event.preventDefault();
-
-    let form_data = getFormData(event.target);
+    let login_form = event.target;
+    let form_data = getFormData(login_form);
     let errors = validateData(form_data);
 
     if(errors){
-        resetErrors(event.target);
-        renderErrors(errors, event.target);
+        resetErrors(login_form);
+        renderErrors(errors, login_form);
     }
     else{
         window.location.href = "/views/wall.html";
