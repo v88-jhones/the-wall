@@ -1,7 +1,15 @@
+/* Contants for validating the forms */
 const FORM_VALIDATION = {
     password_length: 8
 };
 
+/**
+* DOCU: Will get all the values from the form. <br>
+* Triggered: When login/register form is submitted.
+* @function
+* @param {object} form_element - The form element that we want to get the data.
+* @author Jhones 
+*/
 function getFormData(form_element){
     let form_data = {};
 
@@ -14,8 +22,17 @@ function getFormData(form_element){
     return form_data;
 }
 
+/**
+* DOCU: Will render the errors in the form. <br>
+* Triggered: When there is an error in the form.
+* @function
+* @param {object} errors - Key value pairs of errors.
+* @param {object} form_element - The form element that we want to render the errors.
+* @author Jhones 
+*/
 function renderErrors(errors, form_element){
 
+    /* Loop through errors and append a paragraph element to it's matching keys in form element */
     for(let [key, val] of Object.entries(errors)){
         const paragraph = document.createElement('p');
         const textNode = document.createTextNode(val);
@@ -27,6 +44,13 @@ function renderErrors(errors, form_element){
     }
 }
 
+/**
+* DOCU: Will reset and clear all the errors in the form. <br>
+* Triggered: When login/register form is submitted.
+* @function
+* @param {object} form_element - The form element that we want to reset the errors.
+* @author Jhones 
+*/
 function resetErrors(form_element){
     let error_texts = form_element.querySelectorAll(".form_error");
     let error_inputs = form_element.querySelectorAll(".error");

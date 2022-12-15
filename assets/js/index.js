@@ -3,6 +3,13 @@ window.addEventListener("load", () => {
     document.querySelector("#login_form").addEventListener("submit", submitLoginForm);
 });
 
+/**
+* DOCU: Will redirect if it passed the validation else it will show the errors in the form. <br>
+* Triggered: When login form is submitted.
+* @function
+* @param {object} event - To target the login form.
+* @author Jhones 
+*/
 function submitLoginForm(event){
     event.preventDefault();
     let login_form = event.target;
@@ -18,6 +25,15 @@ function submitLoginForm(event){
     }
 }
 
+/**
+* DOCU: Will validate the inputs of the login form. <br>
+* Triggered: When login form is submitted.
+* @function
+* @param {object} form_data - The form element that we want to validate.
+* @return {object} errors - { email, password } 
+* @return {boolean} - false if it has no error 
+* @author Jhones 
+*/
 function validateData(form_data){
     let errors = {};
 

@@ -3,6 +3,13 @@ window.addEventListener("load", () => {
     document.querySelector("#register_form").addEventListener("submit", submitRegisterForm);
 });
 
+/**
+* DOCU: Will redirect if it passed the validation. <br>
+* Triggered: When register form is submitted.
+* @function
+* @param {object} event - To target the register form.
+* @author Jhones 
+*/
 function submitRegisterForm(event){
     event.preventDefault();
     let register_form = event.target;
@@ -18,6 +25,15 @@ function submitRegisterForm(event){
     }
 }
 
+/**
+* DOCU: Will validate the inputs of the register form. <br>
+* Triggered: When register form is submitted.
+* @function
+* @param {object} form_data - The form element that we want to validate.
+* @return {object} errors - { email, password, confirm_password } 
+* @return {boolean} - false if it has no error 
+* @author Jhones 
+*/
 function validateData(form_data){
     let errors = {};
 
